@@ -14,8 +14,10 @@ import requests
 #   sensorNormalState: State indicating this sensor is no longer activated
 #   imageCamera: a local_file camera name that points to the outFileName
 #   notifyTarget: Full path (including domain) to the notification device.
-#   triggerMessage: Notification message when this zone has been activated for the delaySeconds
-#   triggerTitle: Notification title when this zone has been activated for the delaySeconds
+#   triggerMessage: Notification message when this zone has been activated
+#       for the delaySeconds
+#   triggerTitle: Notification title when this zone has been activated for
+#       the delaySeconds
 #   normalMessage: Notification message when this zone is no longer activated
 #   normalTitle: Notification title when this zone is no longer activated
 #   camUser: Username for the camera URL (can be !secret camusername)
@@ -33,8 +35,14 @@ class ImageNotification(appapi.AppDaemon):
                 "friendly_name"))
         sensor_trigger_state = self.args["sensorTriggerState"]
         sensor_normal_state = self.args["sensorNormalState"]
-        self.listen_state(self.open_triggered, sensor, new=sensor_trigger_state)
-        self.listen_state(self.send_closed_notification, sensor, new=sensor_normal_state)
+        self.listen_state(
+            self.open_triggered,
+            sensor,
+            new=sensor_trigger_state)
+        self.listen_state(
+            self.send_closed_notification,
+            sensor,
+            new=sensor_normal_state)
 
     def open_triggered(self, entity, attribute, old, new, kwargs):
         if not self.get_state(entity, "alert"):
@@ -66,12 +74,13 @@ class ImageNotification(appapi.AppDaemon):
             notify_target = self.args["notifyTarget"]
             message = self.args["triggerMessage"]
             title = self.args["triggerTitle"]
-            open_gate_image = "https://theshanks.net:8123" + \
+            ha_base_url = self.args["ha_base_url"]
+            open_gate_image = ha_base_url + \
                 self.get_state(image_camera,
                                "entity_picture")
             extra_data = {"tag": 'imageNotification',
-                         'image': open_gate_image,
-                         'url': open_gate_image}
+                          'image': open_gate_image,
+                          'url': open_gate_image}
             self.log("Sending data: " + json.dumps(extra_data))
             self.call_service(
                 notify_target,

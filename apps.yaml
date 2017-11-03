@@ -16,6 +16,7 @@ ngate-notify:
   normalTitle: Gate Closed
   camUser: !secret hvuser
   camPassword: !secret hvpass
+  ha_base_url: https://yourhomeassistant.com:8123
 
 sgate-notify:
   module: GateNotify
@@ -34,3 +35,4 @@ sgate-notify:
   normalTitle: Gate Closed
   camUser: !secret hvuser
   camPassword: !secret hvpass
+  ha_base_url: https://yourhomeassistant.com:8123
