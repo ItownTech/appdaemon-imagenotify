@@ -13,7 +13,10 @@ I have 2 gates to my backyard and want to be notified if they are left open for 
 - Download the script into your config/apps directory
 - Download or update the apps.yaml file in the config/ directory
 - Create a camera.localfile component in your configuration.yaml for each gate to host the image for remote viewing.
-```camera:
+
+**configuration.yaml** 
+```yaml
+camera:
   - platform: local_file
     file_path: /config/downloads/ngatecam.jpg
     name: North Gate Last Opened
