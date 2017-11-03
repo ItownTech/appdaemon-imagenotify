@@ -1,0 +1,36 @@
+
+ngate-notify:
+  module: GateNotify
+  class: ImageNotification
+  sensor: sensor.elk_zone_003
+  cameraUrl: http://10.1.10.22/Streaming/channels/1/picture
+  outFileName: /conf/downloads/ngatecam.jpg
+  delaySeconds: 120
+  sensorTriggerState: Violated
+  sensorNormalState: Normal
+  imageCamera: camera.north_gate_last_opened
+  notifyTarget: notify/haas_notifier_jshank_pixel
+  triggerMessage: North Gate Left Open
+  triggerTitle: Gate Open
+  normalMessage: North Gate Closed
+  normalTitle: Gate Closed
+  camUser: !secret hvuser
+  camPassword: !secret hvpass
+
+sgate-notify:
+  module: GateNotify
+  class: ImageNotification
+  sensor: sensor.elk_zone_006
+  cameraUrl: http://10.1.10.28/Streaming/channels/1/picture
+  outFileName: /conf/downloads/sgatecam.jpg
+  delaySeconds: 120
+  sensorTriggerState: Violated
+  sensorNormalState: Normal
+  imageCamera: camera.south_gate_last_opened
+  notifyTarget: notify/haas_notifier_jshank_pixel
+  triggerMessage: South Gate Left Open
+  triggerTitle: Gate Open
+  normalMessage: South Gate Closed
+  normalTitle: Gate Closed
+  camUser: !secret hvuser
+  camPassword: !secret hvpass
